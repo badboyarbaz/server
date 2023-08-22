@@ -6,11 +6,9 @@ import userRoute from "./routes/users.js";
 import busesRoute from "./routes/buses.js";
 import paymentsRoute from "./routes/payments.js";
 import ticketRoute from "./routes/ticket.js";
+import cityRoutes from './routes/cities.js';
 import cookieParser from "cookie-parser";
 import passport from "./utils/passport.js";
-//const passport = require("passport");
-require('./utils/passport')(passport);
-
 dotenv.config();
 
 const app = express();
@@ -33,7 +31,7 @@ app.use("/api/users", userRoute);
 app.use("/api/buses", busesRoute);
 app.use("/api/payments", paymentsRoute);
 app.use("/api/ticket", ticketRoute);
-
+app.use('/api/cities', cityRoutes);
 //error handler
 
 app.use((createError, req, res, next) => {

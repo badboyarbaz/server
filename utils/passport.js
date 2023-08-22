@@ -1,21 +1,30 @@
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
+import User from '../models/user.js';
+import passport from 'passport';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 
-const opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = 'arbaz'; // Replace with your JWT secret
 
-module.exports = passport => {
-  passport.use(
-    new JwtStrategy(opts, (jwt_payload, done) => {
-      User.findById(jwt_payload.id) // Replace User with your user model
-        .then(user => {
-          if (user) {
-            return done(null, user);
-          }
-          return done(null, false);
-        })
-        .catch(err => console.error(err));
-    })
-  );
+const opts = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: 'arbaz',
 };
+
+passport.use(
+    new JwtStrategy(opts, (jwt_payload, done) => {
+        console.log("JWT Payload:", jwt_payload); // Log the payload
+        User.findById(jwt_payload._id) // Make sure the ID field is correct in the payload
+            .then((user) => {
+                if (user) {
+                    console.log("User found:", user); // Log the found user
+                    return done(null, user);
+                }
+                console.log("User not found"); // Log if the user is not found
+                return done(null, false);
+            })
+            .catch((err) => {
+                console.error("Error:", err); // Log any error
+                return done(err, false);
+            });
+    })
+);
+
+export default passport;

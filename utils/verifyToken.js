@@ -22,7 +22,7 @@ export default verifyToken;
 
 export const verifyUser = async (req, res, next) => {
   verifyToken(req, res, () => {
-    if(req.user.id === req.params.id || req.user.isAdmin) {
+    if(req.user._id === req.params.id || req.user.isAdmin) {
       next();
     } else {
       const error = createError(403, "You are not authorized");

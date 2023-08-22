@@ -11,7 +11,7 @@ export const register = async (req, res, next) => {
       password: hashedPassword,
     });
     const savedUser = await newUser.save();
-    res.status(200).json(savedUser).send("User has been registered");
+    res.status(200).json({ user: savedUser, message: "User has been registered" });
   } catch (err) {
     throw err;
   }
@@ -40,7 +40,7 @@ export const login = async (req, res, next) => {
       .status(200)
       .json({ ...others, });
   } catch (err) {
-    if (!res.headersSent) {
+    if (!res.headersSent)
       res.status(500).json({ message: err.message });
-    }}
+    }
 };

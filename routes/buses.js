@@ -7,8 +7,14 @@ import {
   getBus,
   getBuses
 } from "../controllers/bus.js";
+import passport from "../utils/passport.js";
 //import { verifyAdmin } from "../utils/verifyToken.js";
 
+
+router.use((req, res, next) => {
+  console.log("Request Headers:", req.headers);
+  next();
+});
 // CREATE
 router.post('/', passport.authenticate('jwt', { session: false }),  async (req, res, next) => {
   try {

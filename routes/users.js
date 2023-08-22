@@ -10,9 +10,9 @@ import verifyToken, { verifyAdmin, verifyUser } from "../utils/verifyToken.js";
 
 const router = express.Router();
 
-// router.get("/checkauth", verifyToken, (req, res, next) => {
-//   res.send("You are authenticated");
-// });
+router.get("/checkauth", verifyToken, (req, res, next) => {
+   res.send("You are authenticated");
+ });
 
 // router.get("/checkuser/:id", verifyUser, (req, res, next) => {
 //   res.send("You are authenticated and you can delete your account");
