@@ -20,8 +20,8 @@ router.post('/', passport.authenticate('jwt', { session: false }),  async (req, 
   try {
     const result = await createBus(req, res, next);
     res.status(201).json(result);
-  } catch (err) {
-    throw err;
+  } catch (error) {
+    next (error);
   }
 });
 
@@ -31,7 +31,7 @@ router.put('/:id', passport.authenticate('jwt', { session: false }), async (req,
     const result = await updateBus(req, res, next);
     res.status(200).json(result);
   } catch (error) {
-    throw err;
+    next (error);
   }
 });
 
@@ -41,7 +41,7 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }),  async (
     const result = await deleteBus(req, res, next);
     res.status(200).json(result);
   } catch (error) {
-    throw err;
+    next (error);
   }
 });
 
@@ -50,8 +50,8 @@ router.get('/:id', async (req, res, next) => {
   try {
     const result = await getBus(req, res, next);
     res.status(200).json(result);
-  } catch (err) {
-    throw err;
+  } catch (error) {
+    next (error);
   }
 });
 
@@ -60,7 +60,7 @@ router.get('/', async (req, res, next) => {
     const result = await getBuses(req, res, next);
     res.status(200).json(result);
   } catch (error) {
-    throw err;
+    next (error);
   }
 });
 

@@ -1,5 +1,8 @@
 import express from "express";
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
+dotenv.config();
+console.log("JWT_SECRET_KEY:", process.env.JWT_SECRET_KEY);
+
 import mongoose from "mongoose";
 import authRoute from "./routes/auth.js";
 import userRoute from "./routes/users.js";
@@ -9,9 +12,13 @@ import ticketRoute from "./routes/ticket.js";
 import cityRoutes from './routes/cities.js';
 import cookieParser from "cookie-parser";
 import passport from "./utils/passport.js";
-dotenv.config();
+
 
 const app = express();
+//middlewares
+app.use(passport.initialize());
+app.use(cookieParser());
+app.use(express.json());
 
 const connect = async () => {
   try {
@@ -21,10 +28,7 @@ const connect = async () => {
   }
 };
 
-//middlewares
-app.use(passport.initialize());
-app.use(cookieParser());
-app.use(express.json());
+
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);

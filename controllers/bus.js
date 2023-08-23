@@ -6,7 +6,10 @@ export const createBus = async (req, res, next) => {
         const savedBus = await newBus.save();
         res.status(200).json(savedBus);
     } catch (err) {
-        throw err;
+        if (err.code === 11000) {
+            res.status(400).json({ error: 'busId must be unique' });
+        } else {
+        throw err;}
     }
 }
 

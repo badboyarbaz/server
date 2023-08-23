@@ -9,7 +9,7 @@ const busSchema = new mongoose.Schema({
   busAvailableSeats: { type: Number, required: true },
   busSource: { type: String, required: true },
   busDestination: { type: String, required: true },
-  busDepartureTime: { type: Number, required: true },
+  busDepartureTime: { type: String, required: true },
 });
 busSchema.pre('save', function(next) {
   this.slug = slugify(this.busName, { lower: true, strict: true });
