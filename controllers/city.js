@@ -1,5 +1,5 @@
 import City from '../models/city.js';
-export const getAllCities = async (req, res) => {
+export const getCities = async (req, res) => {
     try {
         const cities = await City.find();
         res.status(200).json(cities);

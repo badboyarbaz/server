@@ -12,6 +12,7 @@ import ticketRoute from "./routes/ticket.js";
 import cityRoutes from './routes/cities.js';
 import cookieParser from "cookie-parser";
 import passport from "./utils/passport.js";
+import cors from "cors";
 
 
 const app = express();
@@ -19,6 +20,9 @@ const app = express();
 app.use(passport.initialize());
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
 
 const connect = async () => {
   try {
