@@ -2,6 +2,9 @@
   "name": "busboy",
   "version": "1.0.0",
   "main": "index.js",
+    "engines": {
+      "node": "16.x"
+    },
   "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
