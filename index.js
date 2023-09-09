@@ -16,12 +16,15 @@ import cors from "cors";
 
 
 const app = express();
+const PORT = process.env.PORT || 8800;
+const corsOrigin = process.env.NODE_ENV === 'production' ? 'https://busboy.vercel.app' : 'http://localhost:3000';
+
 //middlewares
 app.use(passport.initialize());
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
-  origin: 'https://busboy.vercel.app',
+  origin: corsOrigin,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
@@ -49,7 +52,7 @@ app.use((createError, req, res, next) => {
   res.status(createError.status || 500).json({ error: createError.message });
 });
 
-app.listen(8800, () => {
+app.listen(PORT, () => {
   connect();
   console.log("Connected to backend");
 });
